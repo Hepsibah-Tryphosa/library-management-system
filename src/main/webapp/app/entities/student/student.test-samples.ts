@@ -5,27 +5,26 @@ import { IStudent, NewStudent } from './student.model';
 export const sampleWithRequiredData: IStudent = {
   id: 23105,
   emailId: 'Franc Division Regional',
-  name: 'G4Wn',
+  name: 'Refined Auto',
 };
 
 export const sampleWithPartialData: IStudent = {
-  id: 33985,
-  emailId: 'transmit',
-  name: 'tjM',
-  rollNo: 'Hawaii 24/365',
+  id: 76380,
+  emailId: 'Ngultrum Comoros Hawaii',
+  name: 'deploy of',
 };
 
 export const sampleWithFullData: IStudent = {
-  id: 58818,
-  emailId: 'e-markets auxiliary',
-  name: 'X',
-  rollNo: 'Savings',
-  joiningDate: dayjs('2023-05-07T16:36'),
+  id: 79834,
+  emailId: 'Baby B2C Shirt',
+  name: 'deposit Pizza',
+  rollNo: 'Agent',
+  joiningDate: dayjs('2023-05-07'),
 };
 
 export const sampleWithNewData: NewStudent = {
-  emailId: 'deposit Pizza',
-  name: ' 4',
+  emailId: '4th withdrawal',
+  name: 'indexing Account',
   id: null,
 };
 

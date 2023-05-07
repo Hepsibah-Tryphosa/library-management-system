@@ -10,6 +10,8 @@
         "collegeInfo": "College Info",
         "course": "Course",
         "student": "Student",
+        "book": "Book",
+        "bookHistory": "Book History",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

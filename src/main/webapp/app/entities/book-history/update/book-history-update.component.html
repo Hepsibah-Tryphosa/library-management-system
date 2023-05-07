@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-book-history-heading"
+        data-cy="BookHistoryCreateUpdateHeading"
+        jhiTranslate="libraryMangementApp.bookHistory.home.createOrEditLabel"
+      >
+        Create or edit a Book History
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.bookHistory.bookState" for="field_bookState">Book State</label>
+          <select class="form-control" name="bookState" formControlName="bookState" id="field_bookState" data-cy="bookState">
+            <option [ngValue]="null">{{ 'libraryMangementApp.BookState.null' | translate }}</option>
+            <option *ngFor="let bookState of bookStateValues" [value]="bookState">
+              {{ 'libraryMangementApp.BookState.' + bookState | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.bookHistory.issuedDate" for="field_issuedDate">Issued Date</label>
+          <div class="input-group">
+            <input
+              id="field_issuedDate"
+              data-cy="issuedDate"
+              type="text"
+              class="form-control"
+              name="issuedDate"
+              ngbDatepicker
+              #issuedDateDp="ngbDatepicker"
+              formControlName="issuedDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="issuedDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.bookHistory.returnDate" for="field_returnDate">Return Date</label>
+          <div class="input-group">
+            <input
+              id="field_returnDate"
+              data-cy="returnDate"
+              type="text"
+              class="form-control"
+              name="returnDate"
+              ngbDatepicker
+              #returnDateDp="ngbDatepicker"
+              formControlName="returnDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="returnDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.bookHistory.createdDate" for="field_createdDate">Created Date</label>
+          <div class="input-group">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="text"
+              class="form-control"
+              name="createdDate"
+              ngbDatepicker
+              #createdDateDp="ngbDatepicker"
+              formControlName="createdDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

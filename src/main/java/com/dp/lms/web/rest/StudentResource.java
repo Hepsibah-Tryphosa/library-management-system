@@ -151,12 +151,17 @@ public class StudentResource {
     /**
      * {@code GET  /students} : get all the students.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of students in body.
      */
     @GetMapping("/students")
-    public List<Student> getAllStudents() {
+    public List<Student> getAllStudents(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Students");
-        return studentRepository.findAll();
+        if (eagerload) {
+            return studentRepository.findAllWithEagerRelationships();
+        } else {
+            return studentRepository.findAll();
+        }
     }
 
     /**
@@ -168,7 +173,7 @@ public class StudentResource {
     @GetMapping("/students/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable Long id) {
         log.debug("REST request to get Student : {}", id);
-        Optional<Student> student = studentRepository.findById(id);
+        Optional<Student> student = studentRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(student);
     }
 

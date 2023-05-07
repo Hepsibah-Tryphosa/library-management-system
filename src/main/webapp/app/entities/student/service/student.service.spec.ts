@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { IStudent } from '../student.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../student.test-samples';
 
@@ -8,7 +9,7 @@ import { StudentService, RestStudent } from './student.service';
 
 const requireRestSample: RestStudent = {
   ...sampleWithRequiredData,
-  joiningDate: sampleWithRequiredData.joiningDate?.toJSON(),
+  joiningDate: sampleWithRequiredData.joiningDate?.format(DATE_FORMAT),
 };
 
 describe('Student Service', () => {

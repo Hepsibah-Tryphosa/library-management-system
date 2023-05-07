@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import dayjs from 'dayjs/esm';
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import { IStudent, NewStudent } from '../student.model';
 
 /**
@@ -16,25 +14,17 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type StudentFormGroupInput = IStudent | PartialWithRequiredKeyOf<NewStudent>;
 
-/**
- * Type that converts some properties for forms.
- */
-type FormValueOf<T extends IStudent | NewStudent> = Omit<T, 'joiningDate'> & {
-  joiningDate?: string | null;
-};
-
-type StudentFormRawValue = FormValueOf<IStudent>;
-
-type NewStudentFormRawValue = FormValueOf<NewStudent>;
-
-type StudentFormDefaults = Pick<NewStudent, 'id' | 'joiningDate'>;
+type StudentFormDefaults = Pick<NewStudent, 'id' | 'courses' | 'bookHistories' | 'books'>;
 
 type StudentFormGroupContent = {
-  id: FormControl<StudentFormRawValue['id'] | NewStudent['id']>;
-  emailId: FormControl<StudentFormRawValue['emailId']>;
-  name: FormControl<StudentFormRawValue['name']>;
-  rollNo: FormControl<StudentFormRawValue['rollNo']>;
-  joiningDate: FormControl<StudentFormRawValue['joiningDate']>;
+  id: FormControl<IStudent['id'] | NewStudent['id']>;
+  emailId: FormControl<IStudent['emailId']>;
+  name: FormControl<IStudent['name']>;
+  rollNo: FormControl<IStudent['rollNo']>;
+  joiningDate: FormControl<IStudent['joiningDate']>;
+  courses: FormControl<IStudent['courses']>;
+  bookHistories: FormControl<IStudent['bookHistories']>;
+  books: FormControl<IStudent['books']>;
 };
 
 export type StudentFormGroup = FormGroup<StudentFormGroupContent>;
@@ -42,10 +32,10 @@ export type StudentFormGroup = FormGroup<StudentFormGroupContent>;
 @Injectable({ providedIn: 'root' })
 export class StudentFormService {
   createStudentFormGroup(student: StudentFormGroupInput = { id: null }): StudentFormGroup {
-    const studentRawValue = this.convertStudentToStudentRawValue({
+    const studentRawValue = {
       ...this.getFormDefaults(),
       ...student,
-    });
+    };
     return new FormGroup<StudentFormGroupContent>({
       id: new FormControl(
         { value: studentRawValue.id, disabled: true },
@@ -58,21 +48,24 @@ export class StudentFormService {
         validators: [Validators.required, Validators.maxLength(50)],
       }),
       name: new FormControl(studentRawValue.name, {
-        validators: [Validators.required, Validators.maxLength(50), Validators.pattern('^[A-Za-z0-9? ]+$')],
+        validators: [Validators.required, Validators.maxLength(50)],
       }),
       rollNo: new FormControl(studentRawValue.rollNo, {
         validators: [Validators.maxLength(50)],
       }),
       joiningDate: new FormControl(studentRawValue.joiningDate),
+      courses: new FormControl(studentRawValue.courses ?? []),
+      bookHistories: new FormControl(studentRawValue.bookHistories ?? []),
+      books: new FormControl(studentRawValue.books ?? []),
     });
   }
 
   getStudent(form: StudentFormGroup): IStudent | NewStudent {
-    return this.convertStudentRawValueToStudent(form.getRawValue() as StudentFormRawValue | NewStudentFormRawValue);
+    return form.getRawValue() as IStudent | NewStudent;
   }
 
   resetForm(form: StudentFormGroup, student: StudentFormGroupInput): void {
-    const studentRawValue = this.convertStudentToStudentRawValue({ ...this.getFormDefaults(), ...student });
+    const studentRawValue = { ...this.getFormDefaults(), ...student };
     form.reset(
       {
         ...studentRawValue,
@@ -82,27 +75,11 @@ export class StudentFormService {
   }
 
   private getFormDefaults(): StudentFormDefaults {
-    const currentTime = dayjs();
-
     return {
       id: null,
-      joiningDate: currentTime,
-    };
-  }
-
-  private convertStudentRawValueToStudent(rawStudent: StudentFormRawValue | NewStudentFormRawValue): IStudent | NewStudent {
-    return {
-      ...rawStudent,
-      joiningDate: dayjs(rawStudent.joiningDate, DATE_TIME_FORMAT),
-    };
-  }
-
-  private convertStudentToStudentRawValue(
-    student: IStudent | (Partial<NewStudent> & StudentFormDefaults)
-  ): StudentFormRawValue | PartialWithRequiredKeyOf<NewStudentFormRawValue> {
-    return {
-      ...student,
-      joiningDate: student.joiningDate ? student.joiningDate.format(DATE_TIME_FORMAT) : undefined,
+      courses: [],
+      bookHistories: [],
+      books: [],
     };
   }
 }

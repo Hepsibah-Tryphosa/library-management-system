@@ -1,0 +1,170 @@
+<div>
+  <h2 id="page-heading" data-cy="BookHeading">
+    <span jhiTranslate="libraryMangementApp.book.home.title">Books</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="libraryMangementApp.book.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-book"
+        [routerLink]="['/book/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="libraryMangementApp.book.home.createLabel"> Create a new Book </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="books?.length === 0">
+    <span jhiTranslate="libraryMangementApp.book.home.notFound">No Books found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="books && books.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="title">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.title">Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="author">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.author">Author</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="isbn">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.isbn">Isbn</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="publisher">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.publisher">Publisher</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="price">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.price">Price</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="bookState">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.bookState">Book State</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="issuedDate">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.issuedDate">Issued Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="returnDate">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.returnDate">Return Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdDate">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.createdDate">Created Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="course.id">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.course">Course</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="student.id">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.student">Student</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="bookHistory.id">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.book.bookHistory">Book History</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/book', book.id, 'view']">{{ book.id }}</a>
+          </td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.isbn }}</td>
+          <td>{{ book.publisher }}</td>
+          <td>{{ book.price }}</td>
+          <td jhiTranslate="{{ 'libraryMangementApp.BookState.' + book.bookState }}">{{ book.bookState }}</td>
+          <td>{{ book.issuedDate | formatMediumDate }}</td>
+          <td>{{ book.returnDate | formatMediumDate }}</td>
+          <td>{{ book.createdDate | formatMediumDate }}</td>
+          <td>
+            <span *ngFor="let course of book.courses; let last = last">
+              <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let student of book.students; let last = last">
+              <a class="form-control-static" [routerLink]="['/student', student.id, 'view']">{{ student.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let bookHistory of book.bookHistories; let last = last">
+              <a class="form-control-static" [routerLink]="['/book-history', bookHistory.id, 'view']">{{ bookHistory.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/book', book.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/book', book.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(book)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

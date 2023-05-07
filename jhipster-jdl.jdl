@@ -27,31 +27,31 @@ entity Course{
 }
 entity Student{
   emailId String required unique maxlength(50)
-  name String required maxlength(50)  pattern(/^[A-Za-z0-9? ]+$/)
+  name String required maxlength(50) 
   rollNo String  maxlength(50)
-  joiningDate Instant
+  joiningDate LocalDate
 }
-// entity Book{
-//   title String required maxlength(100) pattern(/^[A-Za-z0-9? ]+$/) 
-//   author String required maxlength(50)  pattern(/^[A-Za-z0-9? ]+$/)
-//   isbn String  maxlength(13)  pattern(/^[A-Za-z0-9? ]+$/)
-//   publisher String required maxlength(50)  pattern(/^[A-Za-z0-9? ]+$/)
-//   price Integer 
-//   bookState BookState
-//   issuedDate Instant
-//   returnDate Instant
-//   createdDate Instant
-// }
-// entity BookHistory{
-//     bookState BookState
-//     issuedDate Instant
-//     returnDate Instant
-//     createdDate Instant
-// }
-// relationship ManyToMany {
-//     Student to Course
-//     Book to Course
-//     Book to Student
-//     Book to BookHistory
-//     Student to BookHistory
-// }
+entity Book{
+  title String required maxlength(100) pattern(/^[A-Za-z0-9? ]+$/) 
+  author String required maxlength(50)  pattern(/^[A-Za-z0-9? ]+$/)
+  isbn String  maxlength(13)  pattern(/^[A-Za-z0-9? ]+$/)
+  publisher String required maxlength(50)  pattern(/^[A-Za-z0-9? ]+$/)
+  price Integer 
+  bookState BookState
+  issuedDate LocalDate
+  returnDate LocalDate
+  createdDate LocalDate
+}
+entity BookHistory{
+    bookState BookState
+    issuedDate LocalDate
+    returnDate LocalDate
+    createdDate LocalDate
+}
+relationship ManyToMany {
+    Student to Course
+    Book to Course
+    Book to Student
+    Book to BookHistory
+    Student to BookHistory
+}

@@ -62,6 +62,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="course.id">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.student.course">Course</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="bookHistory.id">
+            <div class="d-flex">
+              <span jhiTranslate="libraryMangementApp.student.bookHistory">Book History</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -73,7 +85,19 @@
           <td>{{ student.emailId }}</td>
           <td>{{ student.name }}</td>
           <td>{{ student.rollNo }}</td>
-          <td>{{ student.joiningDate | formatMediumDatetime }}</td>
+          <td>{{ student.joiningDate | formatMediumDate }}</td>
+          <td>
+            <span *ngFor="let course of student.courses; let last = last">
+              <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let bookHistory of student.bookHistories; let last = last">
+              <a class="form-control-static" [routerLink]="['/book-history', bookHistory.id, 'view']">{{ bookHistory.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

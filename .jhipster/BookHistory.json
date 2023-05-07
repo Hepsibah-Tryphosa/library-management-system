@@ -1,0 +1,48 @@
+{
+  "applications": ["LibraryMangement"],
+  "changelogDate": "20230507175945",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "book_history",
+  "fields": [
+    {
+      "fieldName": "bookState",
+      "fieldType": "BookState",
+      "fieldValues": "AVAILABLE,ISSUED,RESERVED,REQUESTED,DAMAGED,LOST"
+    },
+    {
+      "fieldName": "issuedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "returnDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BookHistory",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "bookHistory",
+      "ownerSide": false,
+      "relationshipName": "book",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "bookHistory",
+      "ownerSide": false,
+      "relationshipName": "student",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

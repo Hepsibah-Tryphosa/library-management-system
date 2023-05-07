@@ -1,0 +1,87 @@
+{
+  "applications": ["LibraryMangement"],
+  "changelogDate": "20230507175944",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "book",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesPattern": "^[A-Za-z0-9? ]+$"
+    },
+    {
+      "fieldName": "author",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesPattern": "^[A-Za-z0-9? ]+$"
+    },
+    {
+      "fieldName": "isbn",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "13",
+      "fieldValidateRulesPattern": "^[A-Za-z0-9? ]+$"
+    },
+    {
+      "fieldName": "publisher",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesPattern": "^[A-Za-z0-9? ]+$"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "bookState",
+      "fieldType": "BookState",
+      "fieldValues": "AVAILABLE,ISSUED,RESERVED,REQUESTED,DAMAGED,LOST"
+    },
+    {
+      "fieldName": "issuedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "returnDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Book",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "course",
+      "otherEntityRelationshipName": "book",
+      "ownerSide": true,
+      "relationshipName": "course",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "book",
+      "ownerSide": true,
+      "relationshipName": "student",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "bookHistory",
+      "otherEntityRelationshipName": "book",
+      "ownerSide": true,
+      "relationshipName": "bookHistory",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

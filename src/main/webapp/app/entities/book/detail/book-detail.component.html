@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="book">
+      <h2 data-cy="bookDetailsHeading"><span jhiTranslate="libraryMangementApp.book.detail.title">Book</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ book.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.title">Title</span></dt>
+        <dd>
+          <span>{{ book.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.author">Author</span></dt>
+        <dd>
+          <span>{{ book.author }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.isbn">Isbn</span></dt>
+        <dd>
+          <span>{{ book.isbn }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.publisher">Publisher</span></dt>
+        <dd>
+          <span>{{ book.publisher }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.price">Price</span></dt>
+        <dd>
+          <span>{{ book.price }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.bookState">Book State</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'libraryMangementApp.BookState.' + book.bookState }}">{{ book.bookState }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.issuedDate">Issued Date</span></dt>
+        <dd>
+          <span>{{ book.issuedDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.returnDate">Return Date</span></dt>
+        <dd>
+          <span>{{ book.returnDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.createdDate">Created Date</span></dt>
+        <dd>
+          <span>{{ book.createdDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.course">Course</span></dt>
+        <dd>
+          <span *ngFor="let course of book.courses; let last = last">
+            <a [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.student">Student</span></dt>
+        <dd>
+          <span *ngFor="let student of book.students; let last = last">
+            <a [routerLink]="['/student', student.id, 'view']">{{ student.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.book.bookHistory">Book History</span></dt>
+        <dd>
+          <span *ngFor="let bookHistory of book.bookHistories; let last = last">
+            <a [routerLink]="['/book-history', bookHistory.id, 'view']">{{ bookHistory.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/book', book.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

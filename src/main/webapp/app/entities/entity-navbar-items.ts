@@ -14,4 +14,14 @@ export const EntityNavbarItems = [
     route: 'student',
     translationKey: 'global.menu.entities.student',
   },
+  {
+    name: 'Book',
+    route: 'book',
+    translationKey: 'global.menu.entities.book',
+  },
+  {
+    name: 'BookHistory',
+    route: 'book-history',
+    translationKey: 'global.menu.entities.bookHistory',
+  },
 ];

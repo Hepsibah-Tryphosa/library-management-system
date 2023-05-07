@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Book.
+    -->
+    <changeSet id="20230507175944-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="rel_book__course"
+                                 constraintName="fk_rel_book__course__book_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+
+        <addForeignKeyConstraint baseColumnNames="course_id"
+                                 baseTableName="rel_book__course"
+                                 constraintName="fk_rel_book__course__course_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="course"/>
+
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="rel_book__student"
+                                 constraintName="fk_rel_book__student__book_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+
+        <addForeignKeyConstraint baseColumnNames="student_id"
+                                 baseTableName="rel_book__student"
+                                 constraintName="fk_rel_book__student__student_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="student"/>
+
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="rel_book__book_history"
+                                 constraintName="fk_rel_book__book_history__book_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+
+        <addForeignKeyConstraint baseColumnNames="book_history_id"
+                                 baseTableName="rel_book__book_history"
+                                 constraintName="fk_rel_book__book_history__book_history_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book_history"/>
+    </changeSet>
+</databaseChangeLog>

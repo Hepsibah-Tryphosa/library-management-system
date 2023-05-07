@@ -21,7 +21,10 @@
       "emailId": "Email Id",
       "name": "Name",
       "rollNo": "Roll No",
-      "joiningDate": "Joining Date"
+      "joiningDate": "Joining Date",
+      "course": "Course",
+      "bookHistory": "Book History",
+      "book": "Book"
     }
   }
 }

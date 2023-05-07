@@ -50,7 +50,19 @@ public class CacheConfiguration {
             createCache(cm, com.dp.lms.domain.User.class.getName() + ".authorities");
             createCache(cm, com.dp.lms.domain.CollegeInfo.class.getName());
             createCache(cm, com.dp.lms.domain.Course.class.getName());
+            createCache(cm, com.dp.lms.domain.Course.class.getName() + ".students");
+            createCache(cm, com.dp.lms.domain.Course.class.getName() + ".books");
             createCache(cm, com.dp.lms.domain.Student.class.getName());
+            createCache(cm, com.dp.lms.domain.Student.class.getName() + ".courses");
+            createCache(cm, com.dp.lms.domain.Student.class.getName() + ".bookHistories");
+            createCache(cm, com.dp.lms.domain.Student.class.getName() + ".books");
+            createCache(cm, com.dp.lms.domain.Book.class.getName());
+            createCache(cm, com.dp.lms.domain.Book.class.getName() + ".courses");
+            createCache(cm, com.dp.lms.domain.Book.class.getName() + ".students");
+            createCache(cm, com.dp.lms.domain.Book.class.getName() + ".bookHistories");
+            createCache(cm, com.dp.lms.domain.BookHistory.class.getName());
+            createCache(cm, com.dp.lms.domain.BookHistory.class.getName() + ".books");
+            createCache(cm, com.dp.lms.domain.BookHistory.class.getName() + ".students");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,254 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-book-heading" data-cy="BookCreateUpdateHeading" jhiTranslate="libraryMangementApp.book.home.createOrEditLabel">
+        Create or edit a Book
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.title" for="field_title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('title')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be longer than 100 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('title')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Title' }"
+            >
+              This field should follow pattern for Title.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.author" for="field_author">Author</label>
+          <input type="text" class="form-control" name="author" id="field_author" data-cy="author" formControlName="author" />
+          <div *ngIf="editForm.get('author')!.invalid && (editForm.get('author')!.dirty || editForm.get('author')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('author')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('author')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('author')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Author' }"
+            >
+              This field should follow pattern for Author.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.isbn" for="field_isbn">Isbn</label>
+          <input type="text" class="form-control" name="isbn" id="field_isbn" data-cy="isbn" formControlName="isbn" />
+          <div *ngIf="editForm.get('isbn')!.invalid && (editForm.get('isbn')!.dirty || editForm.get('isbn')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('isbn')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 13 }"
+            >
+              This field cannot be longer than 13 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('isbn')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Isbn' }"
+            >
+              This field should follow pattern for Isbn.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.publisher" for="field_publisher">Publisher</label>
+          <input type="text" class="form-control" name="publisher" id="field_publisher" data-cy="publisher" formControlName="publisher" />
+          <div *ngIf="editForm.get('publisher')!.invalid && (editForm.get('publisher')!.dirty || editForm.get('publisher')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('publisher')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('publisher')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('publisher')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Publisher' }"
+            >
+              This field should follow pattern for Publisher.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.price" for="field_price">Price</label>
+          <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.bookState" for="field_bookState">Book State</label>
+          <select class="form-control" name="bookState" formControlName="bookState" id="field_bookState" data-cy="bookState">
+            <option [ngValue]="null">{{ 'libraryMangementApp.BookState.null' | translate }}</option>
+            <option *ngFor="let bookState of bookStateValues" [value]="bookState">
+              {{ 'libraryMangementApp.BookState.' + bookState | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.issuedDate" for="field_issuedDate">Issued Date</label>
+          <div class="input-group">
+            <input
+              id="field_issuedDate"
+              data-cy="issuedDate"
+              type="text"
+              class="form-control"
+              name="issuedDate"
+              ngbDatepicker
+              #issuedDateDp="ngbDatepicker"
+              formControlName="issuedDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="issuedDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.returnDate" for="field_returnDate">Return Date</label>
+          <div class="input-group">
+            <input
+              id="field_returnDate"
+              data-cy="returnDate"
+              type="text"
+              class="form-control"
+              name="returnDate"
+              ngbDatepicker
+              #returnDateDp="ngbDatepicker"
+              formControlName="returnDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="returnDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="libraryMangementApp.book.createdDate" for="field_createdDate">Created Date</label>
+          <div class="input-group">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="text"
+              class="form-control"
+              name="createdDate"
+              ngbDatepicker
+              #createdDateDp="ngbDatepicker"
+              formControlName="createdDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="libraryMangementApp.book.course" for="field_courses">Course</label>
+          <select
+            class="form-control"
+            id="field_courses"
+            data-cy="course"
+            multiple
+            name="courses"
+            formControlName="courses"
+            [compareWith]="compareCourse"
+          >
+            <option [ngValue]="courseOption" *ngFor="let courseOption of coursesSharedCollection">{{ courseOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="libraryMangementApp.book.student" for="field_students">Student</label>
+          <select
+            class="form-control"
+            id="field_students"
+            data-cy="student"
+            multiple
+            name="students"
+            formControlName="students"
+            [compareWith]="compareStudent"
+          >
+            <option [ngValue]="studentOption" *ngFor="let studentOption of studentsSharedCollection">{{ studentOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="libraryMangementApp.book.bookHistory" for="field_bookHistories">Book History</label>
+          <select
+            class="form-control"
+            id="field_bookHistories"
+            data-cy="bookHistory"
+            multiple
+            name="bookHistories"
+            formControlName="bookHistories"
+            [compareWith]="compareBookHistory"
+          >
+            <option [ngValue]="bookHistoryOption" *ngFor="let bookHistoryOption of bookHistoriesSharedCollection">
+              {{ bookHistoryOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

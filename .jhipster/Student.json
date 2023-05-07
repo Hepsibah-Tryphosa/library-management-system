@@ -14,9 +14,8 @@
     {
       "fieldName": "name",
       "fieldType": "String",
-      "fieldValidateRules": ["required", "maxlength", "pattern"],
-      "fieldValidateRulesMaxlength": "50",
-      "fieldValidateRulesPattern": "^[A-Za-z0-9? ]+$"
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
     },
     {
       "fieldName": "rollNo",
@@ -26,7 +25,7 @@
     },
     {
       "fieldName": "joiningDate",
-      "fieldType": "Instant"
+      "fieldType": "LocalDate"
     }
   ],
   "fluentMethods": true,
@@ -34,6 +33,28 @@
   "name": "Student",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "course",
+      "otherEntityRelationshipName": "student",
+      "ownerSide": true,
+      "relationshipName": "course",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "bookHistory",
+      "otherEntityRelationshipName": "student",
+      "ownerSide": true,
+      "relationshipName": "bookHistory",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "student",
+      "ownerSide": false,
+      "relationshipName": "book",
+      "relationshipType": "many-to-many"
+    }
+  ],
   "service": "no"
 }

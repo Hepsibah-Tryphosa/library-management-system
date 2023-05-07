@@ -28,7 +28,21 @@
         </dd>
         <dt><span jhiTranslate="libraryMangementApp.student.joiningDate">Joining Date</span></dt>
         <dd>
-          <span>{{ student.joiningDate | formatMediumDatetime }}</span>
+          <span>{{ student.joiningDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.student.course">Course</span></dt>
+        <dd>
+          <span *ngFor="let course of student.courses; let last = last">
+            <a [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="libraryMangementApp.student.bookHistory">Book History</span></dt>
+        <dd>
+          <span *ngFor="let bookHistory of student.bookHistories; let last = last">
+            <a [routerLink]="['/book-history', bookHistory.id, 'view']">{{ bookHistory.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
         </dd>
       </dl>
 

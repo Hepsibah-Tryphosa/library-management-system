@@ -21,6 +21,8 @@ describe('Course Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             name: expect.any(Object),
+            students: expect.any(Object),
+            books: expect.any(Object),
           })
         );
       });
@@ -32,6 +34,8 @@ describe('Course Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             name: expect.any(Object),
+            students: expect.any(Object),
+            books: expect.any(Object),
           })
         );
       });

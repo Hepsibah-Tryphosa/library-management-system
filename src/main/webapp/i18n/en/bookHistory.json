@@ -1,0 +1,29 @@
+{
+  "libraryMangementApp": {
+    "bookHistory": {
+      "home": {
+        "title": "Book Histories",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Book History",
+        "createOrEditLabel": "Create or edit a Book History",
+        "notFound": "No Book Histories found"
+      },
+      "created": "A new Book History is created with identifier {{ param }}",
+      "updated": "A Book History is updated with identifier {{ param }}",
+      "deleted": "A Book History is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Book History {{ id }}?"
+      },
+      "detail": {
+        "title": "Book History"
+      },
+      "id": "ID",
+      "bookState": "Book State",
+      "issuedDate": "Issued Date",
+      "returnDate": "Return Date",
+      "createdDate": "Created Date",
+      "book": "Book",
+      "student": "Student"
+    }
+  }
+}

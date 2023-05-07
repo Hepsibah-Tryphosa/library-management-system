@@ -9,6 +9,10 @@ import { of, Subject, from } from 'rxjs';
 import { StudentFormService } from './student-form.service';
 import { StudentService } from '../service/student.service';
 import { IStudent } from '../student.model';
+import { ICourse } from 'app/entities/course/course.model';
+import { CourseService } from 'app/entities/course/service/course.service';
+import { IBookHistory } from 'app/entities/book-history/book-history.model';
+import { BookHistoryService } from 'app/entities/book-history/service/book-history.service';
 
 import { StudentUpdateComponent } from './student-update.component';
 
@@ -18,6 +22,8 @@ describe('Student Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let studentFormService: StudentFormService;
   let studentService: StudentService;
+  let courseService: CourseService;
+  let bookHistoryService: BookHistoryService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,17 +46,69 @@ describe('Student Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     studentFormService = TestBed.inject(StudentFormService);
     studentService = TestBed.inject(StudentService);
+    courseService = TestBed.inject(CourseService);
+    bookHistoryService = TestBed.inject(BookHistoryService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call Course query and add missing value', () => {
       const student: IStudent = { id: 456 };
+      const courses: ICourse[] = [{ id: 41397 }];
+      student.courses = courses;
+
+      const courseCollection: ICourse[] = [{ id: 92109 }];
+      jest.spyOn(courseService, 'query').mockReturnValue(of(new HttpResponse({ body: courseCollection })));
+      const additionalCourses = [...courses];
+      const expectedCollection: ICourse[] = [...additionalCourses, ...courseCollection];
+      jest.spyOn(courseService, 'addCourseToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ student });
       comp.ngOnInit();
 
+      expect(courseService.query).toHaveBeenCalled();
+      expect(courseService.addCourseToCollectionIfMissing).toHaveBeenCalledWith(
+        courseCollection,
+        ...additionalCourses.map(expect.objectContaining)
+      );
+      expect(comp.coursesSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should call BookHistory query and add missing value', () => {
+      const student: IStudent = { id: 456 };
+      const bookHistories: IBookHistory[] = [{ id: 11908 }];
+      student.bookHistories = bookHistories;
+
+      const bookHistoryCollection: IBookHistory[] = [{ id: 78548 }];
+      jest.spyOn(bookHistoryService, 'query').mockReturnValue(of(new HttpResponse({ body: bookHistoryCollection })));
+      const additionalBookHistories = [...bookHistories];
+      const expectedCollection: IBookHistory[] = [...additionalBookHistories, ...bookHistoryCollection];
+      jest.spyOn(bookHistoryService, 'addBookHistoryToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ student });
+      comp.ngOnInit();
+
+      expect(bookHistoryService.query).toHaveBeenCalled();
+      expect(bookHistoryService.addBookHistoryToCollectionIfMissing).toHaveBeenCalledWith(
+        bookHistoryCollection,
+        ...additionalBookHistories.map(expect.objectContaining)
+      );
+      expect(comp.bookHistoriesSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const student: IStudent = { id: 456 };
+      const course: ICourse = { id: 40043 };
+      student.courses = [course];
+      const bookHistory: IBookHistory = { id: 31026 };
+      student.bookHistories = [bookHistory];
+
+      activatedRoute.data = of({ student });
+      comp.ngOnInit();
+
+      expect(comp.coursesSharedCollection).toContain(course);
+      expect(comp.bookHistoriesSharedCollection).toContain(bookHistory);
       expect(comp.student).toEqual(student);
     });
   });
@@ -120,6 +178,28 @@ describe('Student Management Update Component', () => {
       expect(studentService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareCourse', () => {
+      it('Should forward to courseService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(courseService, 'compareCourse');
+        comp.compareCourse(entity, entity2);
+        expect(courseService.compareCourse).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareBookHistory', () => {
+      it('Should forward to bookHistoryService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(bookHistoryService, 'compareBookHistory');
+        comp.compareBookHistory(entity, entity2);
+        expect(bookHistoryService.compareBookHistory).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

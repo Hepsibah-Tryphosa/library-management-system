@@ -23,12 +23,36 @@
             <column name="roll_no" type="varchar(50)">
                 <constraints nullable="true" />
             </column>
-            <column name="joining_date" type="${datetimeType}">
+            <column name="joining_date" type="date">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-        <dropDefaultValue tableName="student" columnName="joining_date" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20230507175525-1-relations" author="jhipster">
+
+        <createTable tableName="rel_student__course">
+            <column name="course_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="student_id, course_id" tableName="rel_student__course"/>
+
+        <createTable tableName="rel_student__book_history">
+            <column name="book_history_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="student_id, book_history_id" tableName="rel_student__book_history"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

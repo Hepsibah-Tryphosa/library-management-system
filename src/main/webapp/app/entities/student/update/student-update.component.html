@@ -50,14 +50,6 @@
             >
               This field cannot be longer than 50 characters.
             </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('name')?.errors?.pattern"
-              jhiTranslate="entity.validation.pattern"
-              [translateValues]="{ pattern: 'Name' }"
-            >
-              This field should follow pattern for Name.
-            </small>
           </div>
         </div>
 
@@ -78,17 +70,53 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="libraryMangementApp.student.joiningDate" for="field_joiningDate">Joining Date</label>
-          <div class="d-flex">
+          <div class="input-group">
             <input
               id="field_joiningDate"
               data-cy="joiningDate"
-              type="datetime-local"
+              type="text"
               class="form-control"
               name="joiningDate"
+              ngbDatepicker
+              #joiningDateDp="ngbDatepicker"
               formControlName="joiningDate"
-              placeholder="YYYY-MM-DD HH:mm"
             />
+            <button type="button" class="btn btn-secondary" (click)="joiningDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
           </div>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="libraryMangementApp.student.course" for="field_courses">Course</label>
+          <select
+            class="form-control"
+            id="field_courses"
+            data-cy="course"
+            multiple
+            name="courses"
+            formControlName="courses"
+            [compareWith]="compareCourse"
+          >
+            <option [ngValue]="courseOption" *ngFor="let courseOption of coursesSharedCollection">{{ courseOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="libraryMangementApp.student.bookHistory" for="field_bookHistories">Book History</label>
+          <select
+            class="form-control"
+            id="field_bookHistories"
+            data-cy="bookHistory"
+            multiple
+            name="bookHistories"
+            formControlName="bookHistories"
+            [compareWith]="compareBookHistory"
+          >
+            <option [ngValue]="bookHistoryOption" *ngFor="let bookHistoryOption of bookHistoriesSharedCollection">
+              {{ bookHistoryOption.id }}
+            </option>
+          </select>
         </div>
       </div>
 

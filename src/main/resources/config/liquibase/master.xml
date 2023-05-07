@@ -14,7 +14,11 @@
     <include file="config/liquibase/changelog/20230507175325_added_entity_CollegeInfo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230507175425_added_entity_Course.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230507175525_added_entity_Student.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230507175944_added_entity_Book.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230507175945_added_entity_BookHistory.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20230507175525_added_entity_constraints_Student.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230507175944_added_entity_constraints_Book.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

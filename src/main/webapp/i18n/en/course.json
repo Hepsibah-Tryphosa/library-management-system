@@ -18,7 +18,9 @@
         "title": "Course"
       },
       "id": "ID",
-      "name": "Name"
+      "name": "Name",
+      "student": "Student",
+      "book": "Book"
     }
   }
 }

@@ -24,6 +24,9 @@ describe('Student Form Service', () => {
             name: expect.any(Object),
             rollNo: expect.any(Object),
             joiningDate: expect.any(Object),
+            courses: expect.any(Object),
+            bookHistories: expect.any(Object),
+            books: expect.any(Object),
           })
         );
       });
@@ -38,6 +41,9 @@ describe('Student Form Service', () => {
             name: expect.any(Object),
             rollNo: expect.any(Object),
             joiningDate: expect.any(Object),
+            courses: expect.any(Object),
+            bookHistories: expect.any(Object),
+            books: expect.any(Object),
           })
         );
       });

@@ -17,6 +17,21 @@
   "name": "Course",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "course",
+      "ownerSide": false,
+      "relationshipName": "student",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "course",
+      "ownerSide": false,
+      "relationshipName": "book",
+      "relationshipType": "many-to-many"
+    }
+  ],
   "service": "no"
 }
