@@ -8,6 +8,8 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, BookService } from '../service/book.service';
 import { BookDeleteDialogComponent } from '../delete/book-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
+import { BookState } from 'app/entities/enumerations/book-state.model';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-book',
@@ -25,6 +27,7 @@ export class BookComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected sortService: SortService,
+    private accountService: AccountService,
     protected modalService: NgbModal
   ) {}
 
@@ -32,6 +35,19 @@ export class BookComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    this.accountService.identity().subscribe(() => {
+      if (this.accountService.isAuthenticated()) {
+        this.router.navigate(['']);
+      }
+    });
+  }
+
+  request(book: IBook): void {
+    book.bookState = BookState.REQUESTED;
+    // book.student = null;
+    this.bookService.update(book).subscribe(() => {
+      this.load();
+    });
   }
 
   delete(book: IBook): void {

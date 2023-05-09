@@ -28,4 +28,7 @@ public interface StudentRepository extends StudentRepositoryWithBagRelationships
     default Page<Student> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAll(pageable));
     }
+
+    Optional<Student> findByName(String name);
+    Optional<Student> findOneByName(String name);
 }

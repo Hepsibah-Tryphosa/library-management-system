@@ -86,12 +86,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="createdDate">
+          <!-- <th scope="col" jhiSortBy="createdDate">
             <div class="d-flex">
               <span jhiTranslate="libraryMangementApp.book.createdDate">Created Date</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="course.id">
             <div class="d-flex">
               <span jhiTranslate="libraryMangementApp.book.course">Course</span>
@@ -126,7 +126,7 @@
           <td jhiTranslate="{{ 'libraryMangementApp.BookState.' + book.bookState }}">{{ book.bookState }}</td>
           <td>{{ book.issuedDate | formatMediumDate }}</td>
           <td>{{ book.returnDate | formatMediumDate }}</td>
-          <td>{{ book.createdDate | formatMediumDate }}</td>
+          <!-- <td>{{ book.createdDate | formatMediumDate }}</td> -->
           <td>
             <span *ngFor="let course of book.courses; let last = last">
               <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.name }}</a
@@ -151,13 +151,36 @@
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
+              <button
+                *jhiHasAnyAuthority="'ROLE_USER'"
+                type="submit"
+                class="btn btn-primary btn-sm"
+                [disabled]="book.bookState == 'AVAILABLE' ? false : true"
+                (click)="request(book)"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="save"></fa-icon>
+                <span class="d-none d-md-inline">Request</span>
+              </button>
 
-              <button type="submit" [routerLink]="['/book', book.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+              <button
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                type="submit"
+                [routerLink]="['/book', book.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(book)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                type="submit"
+                (click)="delete(book)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
