@@ -15,8 +15,8 @@ export interface IBook {
   issuedDate?: dayjs.Dayjs | null;
   returnDate?: dayjs.Dayjs | null;
   createdDate?: dayjs.Dayjs | null;
-  courses?: Pick<ICourse, 'id'>[] | null;
-  students?: Pick<IStudent, 'id'>[] | null;
+  courses?: Pick<ICourse, 'id' | 'name'>[] | null;
+  students?: Pick<IStudent, 'id' | 'name'>[] | null;
   bookHistories?: Pick<IBookHistory, 'id'>[] | null;
 }
 

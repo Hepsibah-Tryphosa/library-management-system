@@ -129,13 +129,13 @@
           <td>{{ book.createdDate | formatMediumDate }}</td>
           <td>
             <span *ngFor="let course of book.courses; let last = last">
-              <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a
+              <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.name }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>
           <td>
             <span *ngFor="let student of book.students; let last = last">
-              <a class="form-control-static" [routerLink]="['/student', student.id, 'view']">{{ student.id }}</a
+              <a class="form-control-static" [routerLink]="['/student', student.id, 'view']">{{ student.name }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>

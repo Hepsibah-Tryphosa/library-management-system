@@ -2,12 +2,16 @@ package com.dp.lms.web.rest;
 
 import com.dp.lms.domain.Student;
 import com.dp.lms.repository.StudentRepository;
+import com.dp.lms.repository.UserRepository;
+import com.dp.lms.service.UserService;
+import com.dp.lms.service.dto.AdminUserDTO;
 import com.dp.lms.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -35,9 +39,14 @@ public class StudentResource {
     private String applicationName;
 
     private final StudentRepository studentRepository;
+    private final UserService userService;
 
-    public StudentResource(StudentRepository studentRepository) {
+    private final UserRepository userRepository;
+
+    public StudentResource(StudentRepository studentRepository, UserService userService, UserRepository userRepository) {
         this.studentRepository = studentRepository;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -53,7 +62,16 @@ public class StudentResource {
         if (student.getId() != null) {
             throw new BadRequestAlertException("A new student cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
         Student result = studentRepository.save(student);
+        AdminUserDTO userDTO = new AdminUserDTO();
+        userDTO.setLogin(student.getName());
+        userDTO.setFirstName(student.getName());
+        userDTO.setLastName(student.getName());
+        userDTO.setEmail(student.getEmailId());
+        userDTO.setActivated(true);
+        userDTO.setAuthorities(Set.of("ROLE_USER"));
+        userService.createUser(userDTO);
         return ResponseEntity
             .created(new URI("/api/students/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

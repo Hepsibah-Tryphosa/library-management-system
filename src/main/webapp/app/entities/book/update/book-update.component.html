@@ -133,7 +133,7 @@
           </select>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="libraryMangementApp.book.issuedDate" for="field_issuedDate">Issued Date</label>
           <div class="input-group">
             <input
@@ -150,7 +150,7 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="libraryMangementApp.book.returnDate" for="field_returnDate">Return Date</label>
           <div class="input-group">
             <input
@@ -167,7 +167,7 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="libraryMangementApp.book.createdDate" for="field_createdDate">Created Date</label>
           <div class="input-group">
             <input
@@ -197,7 +197,7 @@
             formControlName="courses"
             [compareWith]="compareCourse"
           >
-            <option [ngValue]="courseOption" *ngFor="let courseOption of coursesSharedCollection">{{ courseOption.id }}</option>
+            <option [ngValue]="courseOption" *ngFor="let courseOption of coursesSharedCollection">{{ courseOption.name }}</option>
           </select>
         </div>
 
@@ -212,7 +212,7 @@
             formControlName="students"
             [compareWith]="compareStudent"
           >
-            <option [ngValue]="studentOption" *ngFor="let studentOption of studentsSharedCollection">{{ studentOption.id }}</option>
+            <option [ngValue]="studentOption" *ngFor="let studentOption of studentsSharedCollection">{{ studentOption.name }}</option>
           </select>
         </div>
 

@@ -98,7 +98,7 @@
             formControlName="courses"
             [compareWith]="compareCourse"
           >
-            <option [ngValue]="courseOption" *ngFor="let courseOption of coursesSharedCollection">{{ courseOption.id }}</option>
+            <option [ngValue]="courseOption" *ngFor="let courseOption of coursesSharedCollection">{{ courseOption.name }}</option>
           </select>
         </div>
 

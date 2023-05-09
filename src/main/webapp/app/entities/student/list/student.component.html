@@ -88,7 +88,7 @@
           <td>{{ student.joiningDate | formatMediumDate }}</td>
           <td>
             <span *ngFor="let course of student.courses; let last = last">
-              <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a
+              <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.name }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>

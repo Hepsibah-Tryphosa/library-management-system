@@ -9,7 +9,7 @@ export interface IStudent {
   name?: string | null;
   rollNo?: string | null;
   joiningDate?: dayjs.Dayjs | null;
-  courses?: Pick<ICourse, 'id'>[] | null;
+  courses?: Pick<ICourse, 'id' | 'name'>[] | null;
   bookHistories?: Pick<IBookHistory, 'id'>[] | null;
   books?: Pick<IBook, 'id'>[] | null;
 }
