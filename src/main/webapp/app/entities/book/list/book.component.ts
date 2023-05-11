@@ -23,8 +23,8 @@ export class BookComponent implements OnInit {
   isLoading = false;
   userAccount: Account | null = null;
   loggedStudent: IStudent | null = null;
-  predicate = 'id';
-  ascending = true;
+  predicate = 'bookState';
+  ascending = false;
 
   constructor(
     protected bookService: BookService,
