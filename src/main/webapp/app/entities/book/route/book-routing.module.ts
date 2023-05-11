@@ -6,14 +6,14 @@ import { BookComponent } from '../list/book.component';
 import { BookDetailComponent } from '../detail/book-detail.component';
 import { BookUpdateComponent } from '../update/book-update.component';
 import { BookRoutingResolveService } from './book-routing-resolve.service';
-import { ASC } from 'app/config/navigation.constants';
+import { ASC, DESC } from 'app/config/navigation.constants';
 
 const bookRoute: Routes = [
   {
     path: '',
     component: BookComponent,
     data: {
-      defaultSort: 'id,' + ASC,
+      defaultSort: 'bookState,' + DESC,
     },
     canActivate: [UserRouteAccessService],
   },
