@@ -43,20 +43,32 @@ export class BookComponent implements OnInit {
     this.accountService.identity().subscribe(account => {
       if (account) {
         this.userAccount = account;
-        this.studentService.findByName(account.login).subscribe(student => {
-          if (student.body) {
-            this.loggedStudent = student.body;
-          }
-        });
+        if (this.accountService.hasAnyAuthority('ROLE_USER')) {
+          this.studentService.findByName(account.login).subscribe(student => {
+            if (student.body) {
+              this.loggedStudent = student.body;
+            }
+          });
+        }
       }
     });
   }
 
-  request(book: IBook): void {
-    book.bookState = BookState.REQUESTED;
-    // book.student = null;
-    book.students = book.students ?? [];
+  requestBook(book: IBook): void {
+    book.students = [];
     book.students.push(this.loggedStudent!);
+    this.bookAction(book, BookState.REQUESTED);
+  }
+
+  issueBook(book: IBook): void {
+    this.bookAction(book, BookState.ISSUED);
+  }
+  returnBook(book: IBook): void {
+    this.bookAction(book, BookState.AVAILABLE);
+  }
+
+  bookAction(book: IBook, bookState: BookState): void {
+    book.bookState = bookState;
     this.bookService.update(book).subscribe(() => {
       this.load();
     });

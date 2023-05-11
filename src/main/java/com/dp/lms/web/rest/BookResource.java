@@ -1,13 +1,17 @@
 package com.dp.lms.web.rest;
 
 import com.dp.lms.domain.Book;
+import com.dp.lms.domain.BookHistory;
+import com.dp.lms.domain.enumeration.BookState;
 import com.dp.lms.repository.BookRepository;
 import com.dp.lms.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -44,7 +48,9 @@ public class BookResource {
      * {@code POST  /books} : Create a new book.
      *
      * @param book the book to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new book, or with status {@code 400 (Bad Request)} if the book has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
+     *         body the new book, or with status {@code 400 (Bad Request)} if the
+     *         book has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/books")
@@ -63,11 +69,13 @@ public class BookResource {
     /**
      * {@code PUT  /books/:id} : Updates an existing book.
      *
-     * @param id the id of the book to save.
+     * @param id   the id of the book to save.
      * @param book the book to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated book,
-     * or with status {@code 400 (Bad Request)} if the book is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the book couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated book,
+     *         or with status {@code 400 (Bad Request)} if the book is not valid,
+     *         or with status {@code 500 (Internal Server Error)} if the book
+     *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/books/{id}")
@@ -79,6 +87,17 @@ public class BookResource {
         }
         if (!Objects.equals(id, book.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+        if (book.getBookState() == BookState.ISSUED) {
+            book.setIssuedDate(LocalDate.now());
+        }
+
+        if (book.getBookState() == BookState.AVAILABLE) {
+            book.setReturnDate(LocalDate.now());
+            // Set<BookHistory> bookHistories = book.getBookHistories();
+            // BookHistory bh = new BookHistory();
+            // bh.addStudent(book.getStudents().iterator().next());
+            // bookHistories.add(bh);
         }
 
         if (!bookRepository.existsById(id)) {
@@ -93,14 +112,17 @@ public class BookResource {
     }
 
     /**
-     * {@code PATCH  /books/:id} : Partial updates given fields of an existing book, field will ignore if it is null
+     * {@code PATCH  /books/:id} : Partial updates given fields of an existing book,
+     * field will ignore if it is null
      *
-     * @param id the id of the book to save.
+     * @param id   the id of the book to save.
      * @param book the book to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated book,
-     * or with status {@code 400 (Bad Request)} if the book is not valid,
-     * or with status {@code 404 (Not Found)} if the book is not found,
-     * or with status {@code 500 (Internal Server Error)} if the book couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated book,
+     *         or with status {@code 400 (Bad Request)} if the book is not valid,
+     *         or with status {@code 404 (Not Found)} if the book is not found,
+     *         or with status {@code 500 (Internal Server Error)} if the book
+     *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/books/{id}", consumes = { "application/json", "application/merge-patch+json" })
@@ -164,8 +186,10 @@ public class BookResource {
     /**
      * {@code GET  /books} : get all the books.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of books in body.
+     * @param eagerload flag to eager load entities from relationships (This is
+     *                  applicable for many-to-many).
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of books in body.
      */
     @GetMapping("/books")
     public List<Book> getAllBooks(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
@@ -181,7 +205,8 @@ public class BookResource {
      * {@code GET  /books/:id} : get the "id" book.
      *
      * @param id the id of the book to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the book, or with status {@code 404 (Not Found)}.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the book, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/books/{id}")
     public ResponseEntity<Book> getBook(@PathVariable Long id) {
