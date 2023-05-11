@@ -10,6 +10,9 @@ import { BookDeleteDialogComponent } from '../delete/book-delete-dialog.componen
 import { SortService } from 'app/shared/sort/sort.service';
 import { BookState } from 'app/entities/enumerations/book-state.model';
 import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/auth/account.model';
+import { IStudent } from 'app/entities/student/student.model';
+import { StudentService } from 'app/entities/student/service/student.service';
 
 @Component({
   selector: 'jhi-book',
@@ -18,12 +21,14 @@ import { AccountService } from 'app/core/auth/account.service';
 export class BookComponent implements OnInit {
   books?: IBook[];
   isLoading = false;
-
+  userAccount: Account | null = null;
+  loggedStudent: IStudent | null = null;
   predicate = 'id';
   ascending = true;
 
   constructor(
     protected bookService: BookService,
+    protected studentService: StudentService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected sortService: SortService,
@@ -35,9 +40,14 @@ export class BookComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
-    this.accountService.identity().subscribe(() => {
-      if (this.accountService.isAuthenticated()) {
-        this.router.navigate(['']);
+    this.accountService.identity().subscribe(account => {
+      if (account) {
+        this.userAccount = account;
+        this.studentService.findByName(account.login).subscribe(student => {
+          if (student.body) {
+            this.loggedStudent = student.body;
+          }
+        });
       }
     });
   }
@@ -45,6 +55,8 @@ export class BookComponent implements OnInit {
   request(book: IBook): void {
     book.bookState = BookState.REQUESTED;
     // book.student = null;
+    book.students = book.students ?? [];
+    book.students.push(this.loggedStudent!);
     this.bookService.update(book).subscribe(() => {
       this.load();
     });

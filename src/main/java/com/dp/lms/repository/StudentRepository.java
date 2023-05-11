@@ -29,6 +29,6 @@ public interface StudentRepository extends StudentRepositoryWithBagRelationships
         return this.fetchBagRelationships(this.findAll(pageable));
     }
 
+    // Optional<Student> findByName(String name);
     Optional<Student> findByName(String name);
-    Optional<Student> findOneByName(String name);
 }

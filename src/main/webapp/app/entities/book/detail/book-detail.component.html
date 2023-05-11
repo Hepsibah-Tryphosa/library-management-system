@@ -60,7 +60,7 @@
         <dt><span jhiTranslate="libraryMangementApp.book.student">Student</span></dt>
         <dd>
           <span *ngFor="let student of book.students; let last = last">
-            <a [routerLink]="['/student', student.id, 'view']">{{ student.id }}</a
+            <a [routerLink]="['/student', student.id, 'view']">{{ student.name }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>

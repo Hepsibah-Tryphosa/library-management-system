@@ -57,6 +57,11 @@ export class StudentService {
       .get<RestStudent>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
+  findByName(name: string): Observable<EntityResponseType> {
+    return this.http
+      .get<IStudent>(`${this.resourceUrl}/name/${name}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServerStudent(res)));
+  }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
@@ -110,10 +115,22 @@ export class StudentService {
       joiningDate: restStudent.joiningDate ? dayjs(restStudent.joiningDate) : undefined,
     };
   }
+  protected convertDateFromServerStudent(restStudent: IStudent): IStudent {
+    return {
+      ...restStudent,
+      joiningDate: restStudent.joiningDate ? dayjs(restStudent.joiningDate) : undefined,
+    };
+  }
 
   protected convertResponseFromServer(res: HttpResponse<RestStudent>): HttpResponse<IStudent> {
     return res.clone({
       body: res.body ? this.convertDateFromServer(res.body) : null,
+    });
+  }
+
+  protected convertResponseFromServerStudent(res: HttpResponse<IStudent>): HttpResponse<IStudent> {
+    return res.clone({
+      body: res.body ? this.convertDateFromServerStudent(res.body) : null,
     });
   }
 

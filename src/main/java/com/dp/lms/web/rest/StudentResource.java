@@ -198,7 +198,7 @@ public class StudentResource {
     @GetMapping("/students/name/{name}")
     public ResponseEntity<Student> getStudent(@PathVariable String name) {
         log.debug("REST request to get Student : {}", name);
-        Optional<Student> student = studentRepository.findOneByName(name);
+        Optional<Student> student = studentRepository.findByName(name);
         return ResponseUtil.wrapOrNotFound(student);
     }
 

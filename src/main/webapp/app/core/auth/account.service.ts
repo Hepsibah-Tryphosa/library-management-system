@@ -72,6 +72,10 @@ export class AccountService {
     return this.userIdentity !== null;
   }
 
+  getLoginName(): string | null {
+    return this.userIdentity?.login ?? null;
+  }
+
   getAuthenticationState(): Observable<Account | null> {
     return this.authenticationState.asObservable();
   }
