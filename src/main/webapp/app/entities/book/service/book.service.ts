@@ -9,6 +9,7 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IBook, NewBook } from '../book.model';
+import { IBookSummary } from '../booksummary.model';
 
 export type PartialUpdateBook = Partial<IBook> & Pick<IBook, 'id'>;
 
@@ -26,7 +27,7 @@ export type PartialUpdateRestBook = RestOf<PartialUpdateBook>;
 
 export type EntityResponseType = HttpResponse<IBook>;
 export type EntityArrayResponseType = HttpResponse<IBook[]>;
-
+export type EntityResponseTypeBookSummary = HttpResponse<IBookSummary>;
 @Injectable({ providedIn: 'root' })
 export class BookService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/books');
@@ -71,6 +72,10 @@ export class BookService {
 
   getBookIdentifier(book: Pick<IBook, 'id'>): number {
     return book.id;
+  }
+
+  getBookSummary(name: string): Observable<EntityResponseTypeBookSummary> {
+    return this.http.get<IBookSummary>(`${this.resourceUrl}/summary`, { observe: 'response' });
   }
 
   compareBook(o1: Pick<IBook, 'id'> | null, o2: Pick<IBook, 'id'> | null): boolean {

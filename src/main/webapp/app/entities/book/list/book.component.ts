@@ -13,10 +13,12 @@ import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { IStudent } from 'app/entities/student/student.model';
 import { StudentService } from 'app/entities/student/service/student.service';
+import { IBookSummary } from '../booksummary.model';
 
 @Component({
   selector: 'jhi-book',
   templateUrl: './book.component.html',
+  styleUrls: ['./book.component.css'],
 })
 export class BookComponent implements OnInit {
   books?: IBook[];
@@ -25,6 +27,7 @@ export class BookComponent implements OnInit {
   loggedStudent: IStudent | null = null;
   predicate = 'bookState';
   ascending = false;
+  bookSummary: IBookSummary | null = null;
 
   constructor(
     protected bookService: BookService,
@@ -94,6 +97,12 @@ export class BookComponent implements OnInit {
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+      },
+    });
+
+    this.bookService.getBookSummary('').subscribe({
+      next: (res: any) => {
+        this.bookSummary = res.body;
       },
     });
   }

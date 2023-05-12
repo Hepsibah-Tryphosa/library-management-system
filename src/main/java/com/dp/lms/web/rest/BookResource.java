@@ -4,6 +4,7 @@ import com.dp.lms.domain.Book;
 import com.dp.lms.domain.BookHistory;
 import com.dp.lms.domain.enumeration.BookState;
 import com.dp.lms.repository.BookRepository;
+import com.dp.lms.web.rest.dto.BookSummary;
 import com.dp.lms.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,6 +15,8 @@ import java.util.Optional;
 import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,9 +42,11 @@ public class BookResource {
     private String applicationName;
 
     private final BookRepository bookRepository;
+    private final SessionFactory sessionFactory;
 
-    public BookResource(BookRepository bookRepository) {
+    public BookResource(BookRepository bookRepository, SessionFactory sessionFactory) {
         this.bookRepository = bookRepository;
+        this.sessionFactory = sessionFactory;
     }
 
     /**
@@ -229,5 +234,26 @@ public class BookResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/books/summary")
+    public ResponseEntity<BookSummary> getBookSummary() {
+        BookSummary bookSummary = new BookSummary();
+        String sql =
+            "SELECT sum(case when book_state = 'AVAILABLE' then 1 else 0 end ) as avaiable , sum(case when book_state = 'ISSUED' then 1 else 0 end ) as issued,     sum(case when book_state = 'REQUESTED' then 1 else 0 end ) as requested, count(*) as total FROM  book b ";
+        Session session = sessionFactory.openSession();
+        // List list = session.createQuery(sql).list();
+        List<Object[]> list = (List<Object[]>) session.createNativeQuery(sql).list();
+        for (Object[] obj : list) {
+            int i = 0;
+            bookSummary.setAvailable(Integer.parseInt(obj[i++].toString()));
+            bookSummary.setIssued(Integer.parseInt(obj[i++].toString()));
+            bookSummary.setRequested(Integer.parseInt(obj[i++].toString()));
+            bookSummary.setTotal(Integer.parseInt(obj[i++].toString()));
+            break;
+        }
+        session.close();
+
+        return ResponseEntity.ok().body(bookSummary);
     }
 }
