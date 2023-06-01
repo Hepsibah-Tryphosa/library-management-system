@@ -45,6 +45,7 @@
       </button>
 
       <button
+        *jhiHasAnyAuthority="'ROLE_ADMIN'"
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-book"
@@ -68,12 +69,12 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
+          <!-- <th scope="col" jhiSortBy="id">
             <div class="d-flex">
               <span jhiTranslate="global.field.id">ID</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <th scope="col" jhiSortBy="title">
             <div class="d-flex">
               <span jhiTranslate="libraryMangementApp.book.title">Title</span>
@@ -140,20 +141,20 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="bookHistory.id">
+          <!-- <th scope="col" jhiSortBy="bookHistory.id">
             <div class="d-flex">
               <span jhiTranslate="libraryMangementApp.book.bookHistory">Book History</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let book of books; trackBy: trackId" data-cy="entityTable">
-          <td>
+          <!-- <td>
             <a [routerLink]="['/book', book.id, 'view']">{{ book.id }}</a>
-          </td>
+          </td> -->
           <td>{{ book.title }}</td>
           <td>{{ book.author }}</td>
           <td>{{ book.isbn }}</td>
@@ -175,12 +176,12 @@
               >{{ last ? '' : ', ' }}
             </span>
           </td>
-          <td>
+          <!-- <td>
             <span *ngFor="let bookHistory of book.bookHistories; let last = last">
               <a class="form-control-static" [routerLink]="['/book-history', bookHistory.id, 'view']">{{ bookHistory.id }}</a
               >{{ last ? '' : ', ' }}
             </span>
-          </td>
+          </td> -->
           <td class="text-end">
             <button
               *jhiHasAnyAuthority="'ROLE_USER'"

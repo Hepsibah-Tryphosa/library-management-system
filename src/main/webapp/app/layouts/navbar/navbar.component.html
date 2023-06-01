@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
-      <span jhiTranslate="global.title" class="navbar-title">LibraryMangement</span>
-      <span class="navbar-version">{{ version }}</span>
+      <span class="navbar-title">SCIENT INSTITUTE OF TECHNOLOGY(Library Management System)</span>
+      <!-- <span class="navbar-version">{{ version }}</span> -->
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -91,7 +91,7 @@
                 <span jhiTranslate="global.menu.entities.book">Book</span>
               </a>
             </li>
-            <li>
+            <!-- <li>
               <a
                 class="dropdown-item"
                 routerLink="book-history"
@@ -102,7 +102,7 @@
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.bookHistory">Book History</span>
               </a>
-            </li>
+            </li> -->
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
         </li>
@@ -128,12 +128,12 @@
               </a>
             </li>
 
-            <li *ngIf="openAPIEnabled">
+            <!-- <li *ngIf="openAPIEnabled">
               <a class="dropdown-item" routerLink="admin/docs" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="book" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.admin.apidocs">API</span>
               </a>
-            </li>
+            </li> -->
             <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
           </ul>
         </li>

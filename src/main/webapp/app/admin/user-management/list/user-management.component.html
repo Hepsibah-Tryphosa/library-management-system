@@ -7,9 +7,9 @@
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="userManagement.home.refreshListLabel">Refresh list</span>
       </button>
-      <button class="btn btn-primary jh-create-entity" [routerLink]="['./new']">
+      <!-- <button class="btn btn-primary jh-create-entity" [routerLink]="['./new']">
         <fa-icon icon="plus"></fa-icon> <span jhiTranslate="userManagement.home.createLabel">Create a new user</span>
-      </button>
+      </button> -->
     </div>
   </h2>
 
@@ -25,9 +25,9 @@
           <th scope="col" jhiSortBy="login"><span jhiTranslate="userManagement.login">Login</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="email"><span jhiTranslate="userManagement.email">Email</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
-          <th scope="col" jhiSortBy="langKey">
+          <!-- <th scope="col" jhiSortBy="langKey">
             <span jhiTranslate="userManagement.langKey">Language</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          </th> -->
           <th scope="col"><span jhiTranslate="userManagement.profiles">Profiles</span></th>
           <th scope="col" jhiSortBy="createdDate">
             <span jhiTranslate="userManagement.createdDate">Created date</span> <fa-icon icon="sort"></fa-icon>
@@ -67,7 +67,7 @@
               Activated
             </button>
           </td>
-          <td>{{ user.langKey }}</td>
+          <!-- <td>{{ user.langKey }}</td> -->
           <td>
             <div *ngFor="let authority of user.authorities">
               <span class="badge bg-info">{{ authority }}</span>

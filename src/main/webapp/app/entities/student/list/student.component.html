@@ -68,12 +68,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="bookHistory.id">
+          <!-- <th scope="col" jhiSortBy="bookHistory.id">
             <div class="d-flex">
               <span jhiTranslate="libraryMangementApp.student.bookHistory">Book History</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
-          </th>
+          </th> -->
           <th scope="col"></th>
         </tr>
       </thead>
@@ -92,12 +92,12 @@
               >{{ last ? '' : ', ' }}
             </span>
           </td>
-          <td>
+          <!-- <td>
             <span *ngFor="let bookHistory of student.bookHistories; let last = last">
               <a class="form-control-static" [routerLink]="['/book-history', bookHistory.id, 'view']">{{ bookHistory.id }}</a
               >{{ last ? '' : ', ' }}
             </span>
-          </td>
+          </td> -->
           <td class="text-end">
             <div class="btn-group">
               <button
