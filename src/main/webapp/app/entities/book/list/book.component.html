@@ -1,67 +1,65 @@
+<p style="font-size: x-large">Books</p>
+
 <div>
-  <h2 id="page-heading" data-cy="BookHeading">
-    <span jhiTranslate="libraryMangementApp.book.home.title">Books</span>
-
-    <!-- Tile for dashboard look -->
-    <div class="d-flex justify-content-center">
-      <div class="tile job">
-        <div class="header">
-          <div class="count">{{ bookSummary?.available }}</div>
-        </div>
-        <div class="body">
-          <div class="title">Available</div>
-        </div>
+  <!-- Tile for dashboard look -->
+  <div class="d-flex justify-content-center">
+    <div class="tile job">
+      <div class="header">
+        <div class="count">{{ bookSummary?.available }}</div>
       </div>
-      <div class="tile resource">
-        <div class="header">
-          <div class="count">{{ bookSummary?.issued }}</div>
-        </div>
-        <div class="body">
-          <div class="title">Issued</div>
-        </div>
-      </div>
-      <div class="tile quote">
-        <div class="header">
-          <div class="count">{{ bookSummary?.requested }}</div>
-        </div>
-        <div class="body">
-          <div class="title">Requested</div>
-        </div>
-      </div>
-      <div class="tile invoice">
-        <div class="header">
-          <div class="count">{{ bookSummary?.total }}</div>
-        </div>
-        <div class="body">
-          <div class="title">Total</div>
-        </div>
+      <div class="body">
+        <div class="title">Available</div>
       </div>
     </div>
-    <form class="wrap">
-      <div class="form-group has-search">
-        <!-- <span class="fa fa-search form-control-feedback"></span> -->
-        <input type="text" class="form-control rcorners" placeholder="Search Book by name" name="searchTerm" [(ngModel)]="searchTerm" />
+    <div class="tile resource">
+      <div class="header">
+        <div class="count">{{ bookSummary?.issued }}</div>
       </div>
-    </form>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="libraryMangementApp.book.home.refreshListLabel">Refresh list</span>
-      </button>
-
-      <button
-        *jhiHasAnyAuthority="'ROLE_ADMIN'"
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-book"
-        [routerLink]="['/book/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="libraryMangementApp.book.home.createLabel"> Create a new Book </span>
-      </button>
+      <div class="body">
+        <div class="title">Issued</div>
+      </div>
     </div>
-  </h2>
+    <div class="tile quote">
+      <div class="header">
+        <div class="count">{{ bookSummary?.requested }}</div>
+      </div>
+      <div class="body">
+        <div class="title">Requested</div>
+      </div>
+    </div>
+    <div class="tile invoice">
+      <div class="header">
+        <div class="count">{{ bookSummary?.total }}</div>
+      </div>
+      <div class="body">
+        <div class="title">Total</div>
+      </div>
+    </div>
+  </div>
+  <form class="wrap">
+    <div class="form-group has-search">
+      <!-- <span class="fa fa-search form-control-feedback"></span> -->
+      <input type="text" class="form-control rcorners" placeholder="Search Book by name" name="searchTerm" [(ngModel)]="searchTerm" />
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+      <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+      <span jhiTranslate="libraryMangementApp.book.home.refreshListLabel">Refresh list</span>
+    </button>
+
+    <button
+      *jhiHasAnyAuthority="'ROLE_ADMIN'"
+      id="jh-create-entity"
+      data-cy="entityCreateButton"
+      class="btn btn-primary jh-create-entity create-book"
+      [routerLink]="['/book/new']"
+    >
+      <fa-icon icon="plus"></fa-icon>
+      <span jhiTranslate="libraryMangementApp.book.home.createLabel"> Create a new Book </span>
+    </button>
+  </div>
 
   <jhi-alert-error></jhi-alert-error>
 
