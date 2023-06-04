@@ -1,58 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Page Not Found</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="favicon.ico" />
-    <style>
-      * {
-        line-height: 1.2;
-        margin: 0;
-      }
+<div id="demo" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
 
-      html {
-        color: #888;
-        display: table;
-        font-family: sans-serif;
-        height: 100%;
-        text-align: center;
-        width: 100%;
-      }
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp" alt="Los Angeles" width="1100" height="500" />
+    </div>
+    <div class="carousel-item">
+      <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(21).webp" alt="Chicago" width="1100" height="500" />
+    </div>
+    <div class="carousel-item">
+      <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(20).webp" alt="New York" width="1100" height="500" />
+    </div>
+  </div>
 
-      body {
-        display: table-cell;
-        vertical-align: middle;
-        margin: 2em auto;
-      }
-
-      h1 {
-        color: #555;
-        font-size: 2em;
-        font-weight: 400;
-      }
-
-      p {
-        margin: 0 auto;
-        width: 280px;
-      }
-
-      @media only screen and (max-width: 280px) {
-        body,
-        p {
-          width: 95%;
-        }
-
-        h1 {
-          font-size: 1.5em;
-          margin: 0 0 0.3em;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Page Not Found</h1>
-    <p>Sorry, but the page you were trying to view does not exist.</p>
-  </body>
-</html>
-<!-- IE needs 512+ bytes: http://blogs.msdn.com/b/ieinternals/archive/2010/08/19/http-error-pages-in-internet-explorer.aspx -->
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
