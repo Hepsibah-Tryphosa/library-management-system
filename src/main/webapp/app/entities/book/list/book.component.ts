@@ -21,6 +21,7 @@ import { IBookSummary } from '../booksummary.model';
   styleUrls: ['./book.component.css'],
 })
 export class BookComponent implements OnInit {
+  searchTerm = '';
   books?: IBook[];
   isLoading = false;
   userAccount: Account | null = null;

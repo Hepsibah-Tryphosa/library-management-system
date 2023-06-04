@@ -60,6 +60,7 @@ export const fontAwesomeIcons = [
   faHome,
   faList,
   faLock,
+  faSearch,
   faPencilAlt,
   faPlus,
   faRoad,

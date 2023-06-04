@@ -37,6 +37,12 @@
         </div>
       </div>
     </div>
+    <form class="wrap">
+      <div class="form-group has-search">
+        <!-- <span class="fa fa-search form-control-feedback"></span> -->
+        <input type="text" class="form-control rcorners" placeholder="Search Book by name" name="searchTerm" [(ngModel)]="searchTerm" />
+      </div>
+    </form>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
@@ -151,7 +157,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let book of books; trackBy: trackId" data-cy="entityTable">
+        <tr *ngFor="let book of books | bookFilter: searchTerm; trackBy: trackId" data-cy="entityTable">
           <!-- <td>
             <a [routerLink]="['/book', book.id, 'view']">{{ book.id }}</a>
           </td> -->
