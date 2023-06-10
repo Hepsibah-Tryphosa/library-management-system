@@ -172,7 +172,11 @@
           </td>
           <td>
             <span *ngFor="let student of book.students; let last = last">
-              <a class="form-control-static" [routerLink]="['/student', student.id, 'view']">{{ student.name }}</a
+              <a
+                *ngIf="book.bookState == 'AVAILABLE' ? false : true"
+                class="form-control-static"
+                [routerLink]="['/student', student.id, 'view']"
+                >{{ student.name }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>
