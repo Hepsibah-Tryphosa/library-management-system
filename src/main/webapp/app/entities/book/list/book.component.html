@@ -162,7 +162,10 @@
           <td>{{ book.price }}</td>
           <td jhiTranslate="{{ 'libraryMangementApp.BookState.' + book.bookState }}">{{ book.bookState }}</td>
           <td>{{ book.issuedDate | formatMediumDate }}</td>
-          <td>{{ book.returnDate | formatMediumDate }}</td>
+          <!-- [hidden]="book.bookState == 'REQUESTED' ? false : true" -->
+
+          <td *ngIf="book.bookState == 'ISSUED' ? false : true">{{ book.returnDate | formatMediumDate }}</td>
+          <td *ngIf="book.bookState == 'ISSUED' ? true : false">---</td>
           <!-- <td>{{ book.createdDate | formatMediumDate }}</td> -->
           <td>
             <span *ngFor="let course of book.courses; let last = last">
