@@ -97,3 +97,15 @@ body {
 .tile.invoice .body {
   color: #0aa361;
 }
+
+.rcorners {
+  border-radius: 50px;
+  width: 500px;
+}
+
+.has-search {
+  padding-top: 2.375rem;
+}
+.has-search .form-control {
+  padding-left: 2.375rem;
+}

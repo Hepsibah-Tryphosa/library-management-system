@@ -22,6 +22,7 @@ import { IBookSummary } from '../booksummary.model';
 })
 export class BookComponent implements OnInit {
   books?: IBook[];
+  searchTerm = '';
   isLoading = false;
   userAccount: Account | null = null;
   loggedStudent: IStudent | null = null;
