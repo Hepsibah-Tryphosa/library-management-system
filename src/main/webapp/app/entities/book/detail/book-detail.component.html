@@ -64,13 +64,13 @@
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
-        <dt><span jhiTranslate="libraryMangementApp.book.bookHistory">Book History</span></dt>
+        <!-- <dt><span jhiTranslate="libraryMangementApp.book.bookHistory">Book History</span></dt>
         <dd>
           <span *ngFor="let bookHistory of book.bookHistories; let last = last">
             <a [routerLink]="['/book-history', bookHistory.id, 'view']">{{ bookHistory.id }}</a
             >{{ last ? '' : ', ' }}
           </span>
-        </dd>
+        </dd> -->
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
